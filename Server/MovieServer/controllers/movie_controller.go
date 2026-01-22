@@ -13,8 +13,8 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo"
 )
 
-var movieCollection *mongo.Collection = database.OpenCollection("Movies")
 var validate = validator.New()
+var movieCollection *mongo.Collection = database.OpenCollection("Movies")
 
 func GetMovies() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -43,14 +43,14 @@ func GetMovie() gin.HandlerFunc {
 		ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 		defer cancel()
 
-		movidId := c.Param("imdb_id")
-		if movidId == "" {
+		movieId := c.Param("imdb_id")
+		if movieId == "" {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Movie Id is Required"})
 			return
 		}
 		var movie models.Movie
 
-		err := movieCollection.FindOne(ctx, bson.M{"imdb_id": movidId}).Decode(&movie)
+		err := movieCollection.FindOne(ctx, bson.M{"imdb_id": movieId}).Decode(&movie)
 		if err != nil {
 
 			c.JSON(http.StatusNotFound, gin.H{"error": "Movie Not Found"})
