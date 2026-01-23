@@ -11,6 +11,7 @@ Authorization: Bearer {{access_token}}
 ###
 post http://localhost:8080/addmovie
 Content-Type: application/json
+Authorization: Bearer {{access_token}}
 
 {
     "imdb_id": "tt0102034",

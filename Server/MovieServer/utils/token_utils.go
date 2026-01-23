@@ -22,11 +22,25 @@ type SignedDetails struct {
 	jwt.RegisteredClaims
 }
 
-var SECRET_KEY string = os.Getenv("SECRET_KEY")
-var REFRESH_TOKEN_SECRET string = os.Getenv("REFRESH_TOKEN_SECRET")
-var userCollection *mongo.Collection = database.OpenCollection("Users")
+func getSecretKey() string {
+	key := os.Getenv("SECRET_KEY")
+	if key == "" {
+		panic("SECRET_KEY environment variable not set")
+	}
+	return key
+}
+
+func getRefreshTokenSecret() string {
+	key := os.Getenv("REFRESH_TOKEN_SECRET")
+	if key == "" {
+		panic("REFRESH_TOKEN_SECRET environment variable not set")
+	}
+	return key
+}
 
 func GenerateAllTokens(email, firstName, lastName, role, userId string) (string, string, error) {
+	SECRET_KEY := getSecretKey()
+	REFRESH_TOKEN_SECRET := getRefreshTokenSecret()
 	clams := &SignedDetails{
 		Email:     email,
 		FirstName: firstName,
@@ -68,6 +82,7 @@ func GenerateAllTokens(email, firstName, lastName, role, userId string) (string,
 func UpdateAllToken(userId, token, refreshToken string) (err error) {
 	var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
 	defer cancel()
+	var userCollection *mongo.Collection = database.OpenCollection("Users")
 
 	updateAt, _ := time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
 	updateData := bson.M{
@@ -98,6 +113,7 @@ func GetAccessToken(c *gin.Context) (string, error) {
 }
 
 func ValidateToken(tokenString string) (*SignedDetails, error) {
+	SECRET_KEY := getSecretKey()
 	clams := &SignedDetails{}
 	token, err := jwt.ParseWithClaims(tokenString, clams, func(t *jwt.Token) (interface{}, error) {
 		return []byte(SECRET_KEY), nil
