@@ -60,3 +60,12 @@ Content-Type: application/json
   ]
 }
 
+
+###
+post http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "email": "craigdenton@hotmail.com",
+  "password": "Password1!"
+}
