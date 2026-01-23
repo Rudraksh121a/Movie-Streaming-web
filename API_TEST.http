@@ -3,7 +3,9 @@ get http://localhost:8080/movies
 
 ###
 @id=tt0111161
+@access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImNyYWlnZGVudG9uQGhvdG1haWwuY29tIiwiRmlyc3ROYW1lIjoiQ3JhaWciLCJMYXN0TmFtZSI6IkRlbnRvbiIsIlJvbGUiOiJVU0VSIiwiVXNlcklkIjoiNjk3Mjk1YmJlNGFhYjM2NDRmYTc3YmQxIiwiaXNzIjoiU3RyZWFtIiwiZXhwIjoxNzY5Mjc1ODQzLCJpYXQiOjE3NjkxODk0NDN9.qm3JsBEw2t_GEDA02ilhVjGS6foodz6AQBiLuZnvepY
 get http://localhost:8080/movie/{{id}}
+Authorization: Bearer {{access_token}}
 
 
 ###
