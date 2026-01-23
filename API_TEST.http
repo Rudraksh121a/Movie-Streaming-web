@@ -3,7 +3,7 @@ get http://localhost:8080/movies
 
 ###
 @id=tt0111161
-@access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6ImNyYWlnZGVudG9uQGhvdG1haWwuY29tIiwiRmlyc3ROYW1lIjoiQ3JhaWciLCJMYXN0TmFtZSI6IkRlbnRvbiIsIlJvbGUiOiJVU0VSIiwiVXNlcklkIjoiNjk3Mjk1YmJlNGFhYjM2NDRmYTc3YmQxIiwiaXNzIjoiU3RyZWFtIiwiZXhwIjoxNzY5Mjc1ODQzLCJpYXQiOjE3NjkxODk0NDN9.qm3JsBEw2t_GEDA02ilhVjGS6foodz6AQBiLuZnvepY
+@access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InRlc3RpbmdAaG90bWFpbC5jb20iLCJGaXJzdE5hbWUiOiJURVNUSU5HIiwiTGFzdE5hbWUiOiJhZHNmIiwiUm9sZSI6IkFETUlOIiwiVXNlcklkIjoiNjk3M2Q0ZWEwNTI3YWExYzVjNDZlMzQ2IiwiaXNzIjoiU3RyZWFtIiwiZXhwIjoxNzY5Mjg1MjUzLCJpYXQiOjE3NjkxOTg4NTN9.igf8krs42F6eNgBagiNH49wHHki7v4drvgY0AK0T2QI
 get http://localhost:8080/movie/{{id}}
 Authorization: Bearer {{access_token}}
 
@@ -39,11 +39,11 @@ post http://localhost:8080/register
 Content-Type: application/json
 
 {
-  "first_name": "Craig",
-  "last_name": "Denton",
-  "email": "craigdenton@hotmail.com",
-  "password": "Password1!",
-  "role": "USER",
+  "first_name": "TESTING",
+  "last_name": "adsf",
+  "email": "testing@hotmail.com",
+  "password": "Password112",
+  "role": "ADMIN",
   "token": "",
   "refresh_token": "",
   "favourite_genres": [
@@ -68,6 +68,23 @@ post http://localhost:8080/login
 Content-Type: application/json
 
 {
-  "email": "craigdenton@hotmail.com",
-  "password": "Password1!"
+  "email": "testing@hotmail.com",
+  "password": "Password112"
 }
+
+
+###
+get  http://localhost:8080/recommendedmovies
+Authorization: Bearer {{access_token}}
+
+@id=tt0111161
+###
+PATCH http://localhost:8080/updatereview/{{id}}
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "admin_review": "bad movie, not recommended"
+}
+
+
